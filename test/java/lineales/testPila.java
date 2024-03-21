@@ -1,6 +1,6 @@
 package test.java.lineales;
 
-import main.java.lineales.estaticas.Pila;
+import main.java.lineales.dinamicas.Pila;
 import java.util.Scanner;
 
 public class testPila {

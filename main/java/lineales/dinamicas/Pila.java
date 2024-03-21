@@ -1,5 +1,7 @@
 package main.java.lineales.dinamicas;
 
+import main.java.lineales.dinamicas.Nodo;
+
 public class Pila {
     private Nodo tope;
     /**sexo */
@@ -49,6 +51,27 @@ public class Pila {
     }
 
     public Pila clone(){
-        
+        Pila clon = new Pila();
+        if (this.tope != null){
+            Nodo temp = this.tope;
+            do{
+                clon.apilar(temp.getDato());
+                temp = temp.getEnlace();
+                
+            }while(temp != null);
+        }
+        return clon;
+    }
+
+    public String toString(){
+        String cadena = "";
+        if (this.tope != null) {
+            Nodo temp = this.tope;
+            do{
+                cadena += temp.getDato().toString()+",";
+                temp = temp.getEnlace();
+            }while(temp != null);
+        }
+        return cadena;
     }
 }
