@@ -1,10 +1,8 @@
-package main.java.lineales.dinamicas;
-
-import main.java.lineales.dinamicas.Nodo;
+package lineales.dinamicas;
 
 public class Pila {
     private Nodo tope;
-    /**sexo */
+    
     public Pila(){
         this.tope = null;
     }
@@ -14,7 +12,10 @@ public class Pila {
         this.tope = nuevo;
         return true;
     }
-
+    /**
+     * @return
+     * Devuelve un booleano si se logra desapilar
+     */
     public boolean desapilar(){
         boolean desapilado;
         if (this.tope != null){

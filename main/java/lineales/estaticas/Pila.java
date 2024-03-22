@@ -1,4 +1,4 @@
-package main.java.lineales.estaticas;
+package lineales.estaticas;
 
 /**
  * La clase Pila implementa una estructura de datos de tipo pila.

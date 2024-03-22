@@ -1,4 +1,4 @@
-package main.java.lineales.dinamicas;
+package lineales.dinamicas;
 
 
 public class Nodo {
