@@ -13,14 +13,53 @@ public class Cola {
 
     public boolean poner(Object elem) {
         boolean puesto;
-        fin = (fin + 1 ) % tamaño;
-        if (array[fin] ==null) {
-            
+        if (inicio == (fin+1%tamaño)) {
+            puesto = false;
+        } else {
+            this.array[fin] = elem;
+            fin = (fin+1)%tamaño;
+            puesto = true;
         }
         return puesto;
     }
 
     public boolean sacar(){
+        boolean sacado;
+        if (this.esVacia()) {
+            sacado = false;
+        } else {
+            this.array[inicio] = null;
+            inicio = (inicio+1)%tamaño;
+            sacado = true;
+        }
+        return sacado;
+    }
 
+    public Object obtenerFrente(){
+        Object frente;
+        if (this.esVacia()) {
+            frente = null;
+        } else {
+            frente = this.array[inicio];
+        }
+        return frente;
+    }
+
+    public boolean esVacia(){
+        return inicio == fin;
+    }
+
+    public void vaciar(){
+        this.inicio = 0;
+        this.fin = 0;
+        this.array = new Object[this.tamaño];
+    }
+
+    public Cola clone(){
+        Cola clon = new Cola();
+        for (int i = 0; i < this.tamaño; i++) {
+            clon.poner(this.array[i]);
+        }
+        return clon;
     }
 }
