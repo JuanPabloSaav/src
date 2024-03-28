@@ -62,4 +62,12 @@ public class Cola {
         }
         return clon;
     }
+
+    public String toString(){
+        String cadena = "";
+        for (int i = 0; i < this.tamaño; i++) {
+            cadena += this.array[i].toString() + " ";
+        }
+        return cadena;
+    }
 }
