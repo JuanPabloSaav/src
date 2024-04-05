@@ -9,7 +9,7 @@ package lineales.estaticas;
 public class Pila {
     private Object[] array;
     private int tope;
-    private int TAMANIO = 20;
+    private int TAMANIO = 10;
 
     public Pila(){
         this.tope = -1;
