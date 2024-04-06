@@ -90,13 +90,21 @@ public class Pila {
      */
     public Pila clone(){
         Pila clon = new Pila();
-        if (this.tope != null){
+        if (this.tope != null) {
+            // Crear un nodo temporal para recorrer la pila original
             Nodo temp = this.tope;
-            do{
-                clon.apilar(temp.getDato());
+            // Crear una pila auxiliar para mantener el orden de los elementos
+            Pila aux = new Pila();
+            // Recorrer la pila original y apilar los elementos en la pila auxiliar
+            while (temp != null) {
+                aux.apilar(temp.getDato());
                 temp = temp.getEnlace();
-                
-            }while(temp != null);
+            }
+            // Recorrer la pila auxiliar y apilar los elementos en la pila clon
+            while (!aux.esVacia()) {
+                clon.apilar(aux.obtenerTope());
+                aux.desapilar();
+            }
         }
         return clon;
     }

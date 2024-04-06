@@ -1,4 +1,5 @@
 package lineales;
+
 import java.util.Scanner;
 import lineales.dinamicas.Cola;
 

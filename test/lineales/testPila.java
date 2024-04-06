@@ -64,7 +64,7 @@ public class testPila {
                     }
                     break;
                 case 7:
-                    System.out.println("Fin de los tests");
+                    System.out.println("Todos los test realizados con exito");
                     break;
                 default:
                     System.out.println("Ocurrio un error inesperado en el testeo de la clase Pila");
