@@ -1,6 +1,6 @@
 package lineales;
 
-import lineales.dinamicas.Pila;
+import lineales.estaticas.Pila;
 
 /************* Autores ***********
     - Saavedra Juan Pablo, Legajo FAI-3888
