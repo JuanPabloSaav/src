@@ -1,5 +1,11 @@
 package lineales.estaticas;
 
+/************* Autores ***********
+    - Saavedra Juan Pablo, Legajo FAI-3888
+    - Gianfranco Gallucci, Legajo FAI-3824
+    - Trobbiani Perales Donato, Legajo FAI-4492
+*/
+
 /**
  * La clase Pila implementa una estructura de datos de tipo pila.
  * La pila es una estructura LIFO (Last In, First Out), lo que significa que el último elemento que se añade es el primero en ser eliminado.
@@ -54,6 +60,7 @@ public class Pila {
     }
 
     /**
+     * Este metodo devuelve el elemento que se encuentra en el tope de la pila.
      * @return
      * El elemento que se encuentra en el tope de la pila.
      */
@@ -68,6 +75,7 @@ public class Pila {
     }
 
     /**
+     * Este metodo verifica si la pila está vacía.
      * @return
      * true si la pila está vacía, false en caso contrario.
      */
@@ -81,10 +89,7 @@ public class Pila {
         return vacio;
     }
     /**
-     * Vacia la pila de elementos.
-     * <p>
-     * NO HAY POSIBLIDAD DE RECUPERAR NADA.
-     * 
+     * Este metodo vacía la pila.
      */
     public void vaciar(){
         if (tope >= 0) {
@@ -107,6 +112,7 @@ public class Pila {
         }
         return pilaClon;
     }
+
     /**
      * Metodo toString de la clase Pila para test
      * @return
