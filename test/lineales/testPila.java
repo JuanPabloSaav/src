@@ -10,18 +10,24 @@ import lineales.estaticas.Pila;
 
 
 public class testPila {
+  
+    public static void main(String[] args) {
+        test();
+    }
+
     /**
-     * Metodo main para testear la clase Pila.
-     * 
+     * Metodo test para la clase Pila.<p>
      * Se va a pasar a la clase pila por una serie de tests para 
      * verificar su correcto funcionamiento.
      * En caso de que un test falle, se mostrara un mensaje de error
      * y se detendra el testeo.
+     * 
      */
-    public static void main(String[] args) {
-        System.out.println("Inicio de test de la clase Pila");
+    public static void test(){
+        System.out.println("Inicio de test de la clase Pila \n");
         boolean success = true;
         int testActual = 0;
+        String testActivo = "";
         /*
          * Para realizar el test se utiliza un bucle do-while que pasa por
          * todas las fases del test de la clase Pila hasta que se encuentre
@@ -30,28 +36,55 @@ public class testPila {
         do{
             testActual++;
             switch (testActual) {
+
                 case 1:
+                    testActivo = "apilar";
                     System.out.println("Primer test: apilar");
                     success = testApilar();
+                    if (success) {
+                        System.out.println("Primer test exitoso");
+                    }
                     break;
                 case 2:
-                    System.out.println("Segundo test: desapilar");
-                    success = testDesapilar();
+                    testActivo = "esVacio";
+                    System.out.println("Segundo test: esVacio");
+                    success = testEsVacio();
+                    if (success) {
+                        System.out.println("Segundo test exitoso");
+                    }
                     break;
                 case 3:
-                    System.out.println("Tercer test: vaciar");
-                    success = testVaciar();
+                    testActivo = "desapilar";
+                    System.out.println("Tercer test: desapilar");
+                    success = testDesapilar();
+                    if (success) {
+                        System.out.println("Tercer test exitoso");
+                    }
                     break;
                 case 4:
-                    System.out.println("Cuarto test: obtenerTope");
-                    success = testObtenerTope();
+                    testActivo = "vaciar";
+                    System.out.println("Cuarto test: vaciar");
+                    success = testVaciar();
+                    if (success) {
+                        System.out.println("Cuarto test exitoso");
+                    }
                     break;
                 case 5:
-                    System.out.println("Quinto test: clonar");
-                    success = testClonar();
+                    testActivo = "obtenerTope";
+                    System.out.println("Quinto test: obtenerTope");
+                    success = testObtenerTope();
+                    System.out.println("Quinto test exitoso");
                     break;
                 case 6:
-                    System.out.println("Sexto test: pila capicua");
+                    testActivo = "clonar";
+                    System.out.println("Sexto test: clonar");
+                    success = testClonar();
+                    System.out.println("Sexto test exitoso");
+                    break;
+                case 7:
+                    testActivo = "Pila capicua";
+                    System.out.println("Septimo test: pila capicua");
+                    System.out.println("Primero se probara con una pila no capicua y despues con una capicua");
                     Pila pilaNormal = new Pila();
                     genPilaNormal(pilaNormal);
                     Pila pilaCapicua = new Pila();
@@ -63,7 +96,8 @@ public class testPila {
                         System.out.println("Error en el test de pila capicua");
                     }
                     break;
-                case 7:
+                case 8:
+                    testActivo = "test finalizados";
                     System.out.println("Todos los test realizados con exito");
                     break;
                 default:
@@ -71,19 +105,20 @@ public class testPila {
                     break;
             }
             if (!success) {
-                System.out.println("Deteniendo testeo debido a un error en la clase Pila");
+                System.out.println("Deteniendo testeo debido a un error en el metodo "+testActivo+" de la clase Pila");
                 break;
             }
-        }while(success && testActual < 7);
+            System.out.println("");
+        }while(success && testActual < 8);
         System.out.println("Fin de test de la clase Pila");
     }
-    
+
     /**
      * Metodo para generar una pila normal de 10 elementos.
      * @param pila de tipo Pila
      */
     public static void genPilaNormal(Pila pila){
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             pila.apilar(i);
         }
     }
@@ -107,20 +142,42 @@ public class testPila {
      */
     public static boolean testApilar(){
         Pila test = new Pila();
-        boolean apilado = false;
-        apilado = test.apilar(1);
-        if (!apilado) {
-            System.out.println("Error en el metodo apilar");
-        }else{
-            if (test.obtenerTope().toString().equals("1")) {
-                System.out.println("No se encontro error en el metodo apilar");
-                System.out.println("Pila resultante: "+test.toString());
-            }else{
-                System.out.println("Error en el metodo apilar");
+        boolean apilado = true;
+        System.out.println("Pila sin elementos: "+ test.toString());
+        for (int i = 1; i <= 10; i++) {
+            if (!test.apilar(i)) {
+                System.out.println("Ocurrio un error al intentar apilar el elemento "+ i);
                 apilado = false;
+                break;
             }
+            System.out.println("Pila con "+i+" elementos:"+test.toString());
+        }
+        if (apilado) {
+            System.out.println("Si la Pila es estatica el siguiente valor debe ser false: "+ test.apilar(11));
         }
         return apilado;
+    }
+
+    /**
+     * Metodo para testear el metodo esVacio de la clase Pila.
+     * @return Boolean: true si el test fue exitoso, false en caso contrario.
+     */
+    public static boolean testEsVacio(){
+        Pila test = new Pila();
+        boolean exito = true;
+        System.out.println("Pila actual: "+test.toString());
+        if (!test.esVacia()) {
+            System.out.println("La pila esta vacia pero el metodo indica que no lo esta");
+            exito = false;
+        }
+        System.out.println("Llenando pila...");
+        genPilaNormal(test);
+        System.out.println("Pila actual: "+test.toString());
+        if (test.esVacia()) {
+            System.out.println("La pila esta llena pero el metodo indica que esta vacia");
+            exito = false;
+        }
+        return exito;
     }
 
     /**
@@ -128,15 +185,21 @@ public class testPila {
      * @return Boolean: true si el test fue exitoso, false en caso contrario.
      */
     public static boolean testDesapilar(){
-        boolean desapilado = false;
+        boolean desapilado = true;
         Pila test = new Pila();
-        test.apilar(1);
-        System.out.println("Pila antes de desapilar: "+test.toString());
-        if (test.desapilar()) {
-            System.out.println("Pila despues de desapilar: "+test.toString());
-            desapilado = true;
-        }else{
-            System.out.println("Error en el metodo desapilar");
+        genPilaNormal(test);
+        System.out.println("Pila antes de desapilar: "+ test.toString());
+        for (int i = 10; i >=1; i--) {
+            if (!test.desapilar()) {
+                System.out.println("Ocurrio un error al intentar desapilar el elemento numero: "+ i);
+                System.out.println("Pila actual: "+test.toString());
+                desapilado = false;
+                break;
+            }
+            System.out.println("Pila con "+ (i-1) +" elementos: "+ test.toString());
+        }
+        if (!test.esVacia()) {
+            desapilado = false;
         }
         return desapilado;
     }
@@ -151,7 +214,7 @@ public class testPila {
         genPilaNormal(test);
         System.out.println("Pila antes de vaciar: "+test.toString());
         test.vaciar();
-        if (test.obtenerTope() != null) {
+        if (!test.esVacia()) {
             System.out.println("Error en el metodo vaciar");
         }else{
             System.out.println("Pila despues de vaciar: "+test.toString());
@@ -165,15 +228,16 @@ public class testPila {
      * @return Boolean: true si el test fue exitoso, false en caso contrario.
      */
     public static boolean testObtenerTope(){
-        boolean existeTope = false;
+        boolean existeTope = true;
         Pila test = new Pila();
-        test.apilar(1);
-        if (test.obtenerTope().toString().equals("1")) {
-            System.out.println("No se encontro error en el metodo obtenerTope");
-            existeTope = true;
-            
+        genPilaNormal(test);
+        System.out.println("Pila actual: "+ test.toString());
+        System.out.println("Se espera el tope 10");
+        if (!test.obtenerTope().toString().equals("10")) {
+            System.out.println("El tope deberia ser 10 pero es: "+ test.obtenerTope());
+            existeTope = false;
         }else{
-            System.out.println("Error en el metodo obtenerTope");
+            System.out.println("El tope es "+ test.obtenerTope() +" como se esperaba");
         }
         return existeTope;
     }
@@ -189,9 +253,12 @@ public class testPila {
         Pila clon = test.clone();
         if (test.toString().equals(clon.toString())) {
             clonado = true;
-            System.out.println("No se encontro error en el metodo clonar");
+            System.out.println("Pila original: "+ test.toString());
+            System.out.println("Pila clon: "+ clon.toString());
         }else{
-            System.out.println("Error en el metodo clonar");
+            System.out.println("La pila clon es distinta a la pila original");
+            System.out.println("Pila original: "+ test.toString());
+            System.out.println("Pila clon: "+ clon.toString());
         }
         return clonado;
     }
@@ -212,6 +279,8 @@ public class testPila {
         if (clonInverso.toString().equals(test.toString())) {
             capicua = true;
         }
+        System.out.println("Pila original: "+ test.toString());
+        System.out.println("Pila invertida: "+ clonInverso.toString());
         return capicua;
     }
 }
