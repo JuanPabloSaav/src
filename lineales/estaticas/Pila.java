@@ -121,11 +121,9 @@ public class Pila {
     public String toString(){
         String cadena = "";
         if (tope >= 0) {
-            for (int i = tope; i >= 0; i--) {
-                cadena += this.array[i].toString() + " ";
+            for (int i = 0; i <= tope; i++) {
+                cadena += this.array[i] + " ";
             }
-        }else{
-            cadena = "Pila vacía";
         }
         return cadena;
     }
