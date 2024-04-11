@@ -73,7 +73,8 @@ public class Lista {
         Nodo aux = this.cabecera;
         int pos = -1;
         int i = 1;
-        while (i < longitud()) {
+        int limit = longitud();
+        while (i < limit) {
             if (aux.getDato().toString().equals(elemento.toString())) {
                 pos = i;
                 break;
@@ -110,7 +111,8 @@ public class Lista {
         Lista clon = new Lista();
         Nodo aux = this.cabecera;
         int pos = 1;
-        while (pos <= longitud()) {
+        int limit = longitud();
+        while (pos <= limit) {
             clon.insertar(aux.getDato(), pos);
             aux = aux.getEnlace();
             pos++;
