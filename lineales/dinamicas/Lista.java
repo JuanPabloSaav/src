@@ -59,7 +59,7 @@ public class Lista {
             }else if(pos <= this.longitud()){
                 Nodo aux = this.cabecera;
                 int i = 1;
-                while (i < pos) {
+                while (i <= pos) {
                     aux = aux.getEnlace();
                     i++;
                 }
@@ -124,12 +124,12 @@ public class Lista {
         Nodo aux = this.cabecera;
         String cadena = "[";
         while (aux != null) {
-            cadena += aux.getDato().toString()+",";
-            aux.getEnlace();
             if (aux.getEnlace() == null) {
                 cadena += aux.getDato();
                 break;
             }
+            cadena += aux.getDato().toString()+",";
+            aux = aux.getEnlace();
         }
         cadena += "]";
         return cadena;
