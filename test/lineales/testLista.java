@@ -75,7 +75,7 @@ public class testLista {
                     break;
                 default:
                     System.out.println("Error inesperado");
-                    fase = 9;
+                    fase = 10;
                     break;
             }
             if (!exito) {
