@@ -59,7 +59,7 @@ public class Lista {
             }else if(pos <= this.longitud()){
                 Nodo aux = this.cabecera;
                 int i = 1;
-                while (i <= pos) {
+                while (i < pos) {
                     aux = aux.getEnlace();
                     i++;
                 }
