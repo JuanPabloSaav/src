@@ -55,7 +55,7 @@ public class Lista {
         Object elemento = null;
         if (this.cabecera != null) {
             if (pos == 1) {
-                cabecera.getDato();
+                elemento = cabecera.getDato();
             }else if(pos <= this.longitud()){
                 Nodo aux = this.cabecera;
                 int i = 1;
