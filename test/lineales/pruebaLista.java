@@ -3,7 +3,6 @@ package lineales;
 import java.util.Scanner;
 
 import lineales.dinamicas.Lista;
-import lineales.dinamicas.Pila;
 
 public class pruebaLista {
     private static Scanner sc = new Scanner(System.in);
