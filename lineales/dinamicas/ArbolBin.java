@@ -26,6 +26,7 @@ public class ArbolBin {
                 exito = false;
             }
         }
+        return exito;
     }
 
     private NodoArbol obtenerNodo(Object elem, NodoArbol raiz){
