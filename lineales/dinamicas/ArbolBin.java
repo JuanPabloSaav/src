@@ -13,7 +13,18 @@ public class ArbolBin {
         if (raiz == null) {
             raiz = new NodoArbol(elem, null, null);
         }else{
-
+            NodoArbol nodoPadre = obtenerNodo(elemPadre, raiz);
+            if (nodoPadre != null) {
+                if (hIzquierdo && nodoPadre.getIzquierdo() == null) {
+                    nodoPadre.setIzquierdo(new NodoArbol(elem, null, null));
+                }else if (!hIzquierdo && nodoPadre.getDerecho() == null) {
+                    nodoPadre.setDerecho(new NodoArbol(elem, null, null));
+                }else{
+                    exito = false;
+                }
+            }else{
+                exito = false;
+            }
         }
     }
 
