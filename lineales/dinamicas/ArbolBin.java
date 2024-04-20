@@ -7,6 +7,48 @@ public class ArbolBin {
         this.raiz = null;
     }
 
+    public boolean insertarPorPosicion(Object elemNuevo, int posPadre){
+        boolean exito = true;
+        if (posPadre == 0) {
+            if (raiz == null) {
+                raiz = new NodoArbol(elemNuevo, null, null);
+            }else{
+                exito = false;
+            }
+        }else{
+            int[] posPadreAux = {posPadre-1};
+            NodoArbol nodoPadre = obtenerNodoPorPosicion(posPadreAux, raiz);
+            if (nodoPadre != null) {
+                if (nodoPadre.getIzquierdo() == null) {
+                    nodoPadre.setIzquierdo(new NodoArbol(elemNuevo, null, null));
+                }else if (nodoPadre.getDerecho() == null) {
+                    nodoPadre.setDerecho(new NodoArbol(elemNuevo, null, null));
+                }else{
+                    exito = false;
+                }
+            }else{
+                exito = false;
+            }
+        }
+        return exito;
+    }
+
+    private NodoArbol obtenerNodoPorPosicion(int[] posPadre, NodoArbol padre){
+        NodoArbol nodo = null;
+        if (padre != null && posPadre[0] >= 0) {
+            if (posPadre[0] == 0) {
+                nodo = padre;
+            }else{
+                posPadre[0]--;
+                nodo = obtenerNodoPorPosicion(posPadre, padre.getIzquierdo());
+                if (nodo == null) {
+                    nodo = obtenerNodoPorPosicion(posPadre, padre.getDerecho());
+                }
+            }
+        }
+        return nodo;
+    }
+
     public boolean insertar(Object elem, Object elemPadre, boolean hIzquierdo){
         boolean exito = true;
 
@@ -196,8 +238,40 @@ public class ArbolBin {
 
     public ArbolBin clone(){
         ArbolBin clon = new ArbolBin();
-        
+        clon.insertar(cloneAux(raiz), null, true);
+        return clon;
     }
 
+    private NodoArbol cloneAux(NodoArbol padre){
+        NodoArbol clon = null;
+        if (padre != null) {
+            clon = new NodoArbol(padre.getElemento(), cloneAux(padre.getIzquierdo()), cloneAux(padre.getDerecho()));
+        }
+        return clon;
+    }
+
+    public String toString(){
+        String arbol = toStringAux(raiz);
+        return arbol;
+    }
+
+    private String toStringAux(NodoArbol padre){
+        String arbol = "";
+        if (padre != null) {
+            arbol += "Nodo: "+padre.getElemento()+"\n";
+            arbol += "Hijo Izquierdo: ";
+            if (padre.getIzquierdo() != null) {
+                arbol += padre.getIzquierdo().getElemento().toString()+" ";
+            }
+            arbol += "Hijo Derecho: ";
+            if (padre.getDerecho() != null){
+                arbol += padre.getDerecho().getElemento().toString();
+            }
+            arbol += "\n";
+            arbol += toStringAux(padre.getIzquierdo());
+            arbol += toStringAux(padre.getDerecho());
+        }
+        return arbol;
+    }
 
 }
