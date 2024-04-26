@@ -134,4 +134,43 @@ public class Lista {
         cadena += "]";
         return cadena;
     }
+
+    public Lista obtenerMultiplos(int num){
+        Lista nuevaLista = new Lista();
+        if (cabecera != null) {
+            int i = 1;
+            Nodo aux = cabecera;
+            Nodo auxNuevaList = nuevaLista.cabecera;
+            while (aux != null) {
+                aux = aux.getEnlace();
+                if (i%num == 0) {
+                    if (auxNuevaList == null) {
+                        auxNuevaList = new Nodo(aux.getDato(), null);
+                    }
+                    auxNuevaList = auxNuevaList.getEnlace();
+                }
+                i++;
+            }
+        }
+        return nuevaLista;
+    }
+
+    public void eliminarAparicion(Object x){
+        if (cabecera != null) {
+            String xString = x.toString()
+            Nodo aux = cabecera;
+            if (aux.getDato().toString().equals(xString)) {
+                aux = aux.getEnlace();
+            }
+            while (aux != null) {
+                if (aux.getEnlace().getDato().toString().equals(xString)) {
+                    Nodo aux2 = aux.getEnlace();
+                    aux.setEnlace(aux2.getEnlace());
+                }
+                aux = aux.getEnlace();
+            }
+        }
+    }
+
+    
 }
