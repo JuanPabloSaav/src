@@ -33,7 +33,6 @@ public class ArbolBin {
         return exito;
     }
 
-    //TE VOY A TOCAR
     private NodoArbol obtenerNodoPorPosicion(int[] posPadre, NodoArbol padre){
         NodoArbol nodo = null;
         if (padre != null && posPadre[0] >= 0) {
