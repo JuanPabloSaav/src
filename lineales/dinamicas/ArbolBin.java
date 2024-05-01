@@ -274,6 +274,59 @@ public class ArbolBin {
         }
         return arbol;
     }
+    // en el peor de los casos esto es o(n^2)
+    public boolean verificarPatron(Lista patron){
+        boolean coincide = false;
+        if(raiz != null && !patron.esVacia()){
+            //Si la lista esta vacia y la raiz es nula, entonces coincidiria el patron???
+            //En todo caso un else if(patron.esVacio() && raiz == null) coincide = true
+            coincide = verificarPatronAux(patron, 1, raiz);
+        }
+        return coincide;
+    }
 
+    private boolean verificarPatronAux(Lista patron, int pos, NodoArbol nodo){
+        boolean coincide = false;
+        int longitud = patron.longitud();
+        if (longitud >= pos) {
+            String aux = patron.recuperar(pos).toString();
+            if ((nodo != null) && (aux.equals(nodo.getElemento().toString()))) {
+                if (pos+1 > longitud) {
+                    coincide = true;
+                }else{
+                    coincide = verificarPatronAux(patron, pos+1, nodo.getIzquierdo());
+                    if (!coincide) {
+                        coincide = verificarPatronAux(patron, pos+1, nodo.getDerecho());
+                    }
+                }
+            }
+        }
+        
+        return coincide;
+    }
 
+    public Lista frontera(){
+        Lista listaFrontera = new Lista();
+        int[] pos = new int[1];
+        pos[0] = 1;
+        fronteraAux(raiz, listaFrontera, pos);
+        return listaFrontera;
+    }
+
+    private void fronteraAux(NodoArbol nodo, Lista listaFrontera, int[] pos){
+        if (nodo != null) {
+            if (nodo.getIzquierdo() == null && nodo.getDerecho() == null) {
+                listaFrontera.insertar(nodo.getElemento(), pos[0]);
+                pos[0]++;
+            }else{
+                if (nodo.getIzquierdo() != null) {
+                    fronteraAux(nodo.getIzquierdo(), listaFrontera, pos);
+                }
+                if (nodo.getDerecho() != null) {
+                    fronteraAux(nodo.getDerecho(), listaFrontera, pos);
+                }
+
+            }
+        }
+    }
 }

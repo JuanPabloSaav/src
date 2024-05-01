@@ -68,4 +68,17 @@ public class Cola {
         }
         return clon;
     }
+
+    public String toString(){
+        String cadena = "[";
+        if (!this.esVacia()) {
+            Nodo aux = this.frente;
+            while (aux != null) {
+                cadena += aux.getDato().toString() + " ";
+                aux = aux.getEnlace();
+            }
+        }
+        cadena += "]";
+        return cadena;
+    }
 }

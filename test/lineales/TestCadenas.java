@@ -1,4 +1,4 @@
-package test.lineales;
+package lineales;
 
 import lineales.dinamicas.Cola;
 import lineales.dinamicas.Pila;
@@ -33,7 +33,7 @@ public class TestCadenas {
     private static void generarAux(Cola clon, Cola c2){
         Cola aux = new Cola();
         Pila pilaAux = new Pila();
-        while (!clon.obtenerFrente().equals('#')) {
+        while (!clon.esVacia() &&!clon.obtenerFrente().equals('#') ) {
             aux.poner(clon.obtenerFrente());
             c2.poner(clon.obtenerFrente());
             pilaAux.apilar(clon.obtenerFrente());
@@ -47,7 +47,10 @@ public class TestCadenas {
             c2.poner(aux.obtenerFrente());
             aux.sacar();
         }
-        c2.poner('#');
+        if (!clon.esVacia()) {
+            c2.poner('#');
+        }
+        
     }
 
 

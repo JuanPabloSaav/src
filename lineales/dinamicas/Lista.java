@@ -157,7 +157,7 @@ public class Lista {
 
     public void eliminarAparicion(Object x){
         if (cabecera != null) {
-            String xString = x.toString()
+            String xString = x.toString();
             Nodo aux = cabecera;
             if (aux.getDato().toString().equals(xString)) {
                 aux = aux.getEnlace();
