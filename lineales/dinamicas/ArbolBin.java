@@ -7,7 +7,7 @@ public class ArbolBin {
         this.raiz = null;
     }
 
-    public boolean insertarPorPosicion(Object elemNuevo, int posPadre){
+    public boolean insertarPorPosicion(Object elemNuevo, int posPadre, char posHijo){
         boolean exito = true;
         if (posPadre == 0) {
             if (raiz == null) {
@@ -19,9 +19,9 @@ public class ArbolBin {
             int[] posPadreAux = {posPadre-1};
             NodoArbol nodoPadre = obtenerNodoPorPosicion(posPadreAux, raiz);
             if (nodoPadre != null) {
-                if (nodoPadre.getIzquierdo() == null) {
+                if (posHijo == 'i' && nodoPadre.getIzquierdo() == null) {
                     nodoPadre.setIzquierdo(new NodoArbol(elemNuevo, null, null));
-                }else if (nodoPadre.getDerecho() == null) {
+                }else if (posHijo == 'd' && nodoPadre.getDerecho() == null) {
                     nodoPadre.setDerecho(new NodoArbol(elemNuevo, null, null));
                 }else{
                     exito = false;
@@ -329,4 +329,20 @@ public class ArbolBin {
             }
         }
     }
+
+    public ArbolBin clonarInvertido(){
+        ArbolBin clon = new ArbolBin();
+        clon.insertar(clonarInvertidoAux(raiz), null, true);
+        return clon;
+    }
+
+    private NodoArbol clonarInvertidoAux(NodoArbol nodo){
+        NodoArbol clon = null;
+        if (nodo != null) {
+            clon = new NodoArbol(nodo.getElemento(), clonarInvertidoAux(nodo.getDerecho()), clonarInvertidoAux(nodo.getIzquierdo()));
+        }
+        return clon;
+    }
+
+    
 }

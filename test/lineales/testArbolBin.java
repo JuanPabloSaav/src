@@ -43,4 +43,8 @@ public class testArbolBin {
         Lista list = arbol.frontera();
         System.out.println(list.toString());
     }
+
+    public static void TestClonarInvertido(){
+        
+    }
 }
