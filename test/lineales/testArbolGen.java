@@ -5,7 +5,7 @@ import lineales.dinamicas.Lista;
 
 public class testArbolGen {
     public static void main(String[] args) {
-        testNiveles();
+        testClone();
     }
 
     public static void testInsertar(){
@@ -99,5 +99,18 @@ public class testArbolGen {
             System.out.println(lista.recuperar(i));
         }
         System.out.println("La lista deberia ser: \nflopa, unflopa, otroFlopa, algunflopa, otroflopa2");
+    }
+
+    public static void testClone(){
+        ArbolGen arbol = new ArbolGen();
+        arbol.insertar("flopa", null);
+        arbol.insertar("unflopa", "flopa");
+        arbol.insertar("otroFlopa", "flopa");
+        arbol.insertar("algunflopa", "unflopa");
+        arbol.insertar("otroflopa2", "unflopa");
+        ArbolGen clon = arbol.clon();
+        System.out.println("Arbol original: " + arbol.toString());
+        System.out.println("Arbol clon: " + clon.toString());
+        System.out.println("peru!");
     }
 }
