@@ -5,7 +5,7 @@ import lineales.dinamicas.Lista;
 
 public class testArbolGen {
     public static void main(String[] args) {
-        testClone();
+        testAncestro();
     }
 
     public static void testInsertar(){
@@ -44,9 +44,11 @@ public class testArbolGen {
         arbol.insertar("flopa", null);
         arbol.insertar("unflopa", "flopa");
         arbol.insertar("otroFlopa", "flopa");
+        arbol.insertar("algunflopa", "unflopa");
         arbol.insertar("otroflopa2", "unflopa");
-        System.out.println("buscando otroflopa2");
-        Lista flopa = arbol.ancestros("otroflopa2");
+        arbol.insertar("otroflopa3", "otroflopa2");
+        System.out.println("buscando otroflopa3");
+        Lista flopa = arbol.ancestros("otroflopa3");
         System.out.println("Mostrando lista:");
         for (int i = 1; i <= flopa.longitud(); i++) {
             System.out.println(flopa.recuperar(i).toString() + " pos: "+ i);
