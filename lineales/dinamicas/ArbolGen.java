@@ -347,9 +347,37 @@ public class ArbolGen {
         }
     }
 
-    public ArbolGen clone(){
+    public ArbolGen clon(){
         ArbolGen clon = new ArbolGen();
-        
+        if (raiz != null) {
+            clon.raiz = new NodoArbolGen(raiz.getElemento(), null, null);
+            cloneAux(raiz, clon.raiz);
+        }
+        return clon;
+    }
+
+    private void cloneAux(NodoArbolGen nodo, NodoArbolGen clon){
+        if (nodo != null) {
+            NodoArbolGen aux = nodo.getIzquierdo();
+            NodoArbolGen clonAux = clon;
+            if (aux != null) {
+                clonAux.setIzquierdo(new NodoArbolGen(aux.getElemento(), null, null));
+                clonAux = clonAux.getIzquierdo();
+                aux = aux.getHermanoDerecho();
+                while (aux != null) {
+                    clonAux.setHermanoDerecho(new NodoArbolGen(aux.getElemento(), null, null));
+                    clonAux = clonAux.getHermanoDerecho();
+                    aux = aux.getHermanoDerecho();
+                }
+                aux = nodo.getIzquierdo();
+                clonAux = clon.getIzquierdo();
+                while (aux != null) {
+                    cloneAux(aux, clonAux);
+                    aux = aux.getHermanoDerecho();
+                    clonAux = clonAux.getHermanoDerecho();
+                }
+            }
+        }
     }
 
     /**
