@@ -14,7 +14,11 @@ public class Lista {
             exito = false;
         }else{
             if (pos == 1) {
-                this.cabecera = new Nodo(elem, null);
+                if (this.cabecera == null) {
+                    this.cabecera = new Nodo(elem, null);
+                }else{
+                    this.cabecera = new Nodo(elem, cabecera);
+                }
             }else{
                 Nodo aux = this.cabecera;
                 int i = 1;
@@ -53,7 +57,7 @@ public class Lista {
 
     public Object recuperar(int pos){
         Object elemento = null;
-        if (this.cabecera != null) {
+        if (this.cabecera != null && pos > 0) {
             if (pos == 1) {
                 elemento = cabecera.getDato();
             }else if(pos <= this.longitud()){

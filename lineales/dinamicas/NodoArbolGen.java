@@ -31,7 +31,7 @@ public class NodoArbolGen {
         this.izquierdo = izquierdo;
     }
 
-    public void sethermanoDerecho(NodoArbolGen hermanoDerecho) {
+    public void setHermanoDerecho(NodoArbolGen hermanoDerecho) {
         this.hermanoDerecho = hermanoDerecho;
     }
 }
