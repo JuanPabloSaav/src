@@ -12,14 +12,33 @@ public class Heap {
 
     public boolean insertar(Comparable elem){
         boolean exito = false;
-        for (int i = 1; i < this.tamaño; i++) {
-            if (array[i] == null) {
-                array[i] = elem;
-                ultimo = i;
-                exito = true;
-            }
+        if (ultimo+1 < array.length) {
+            ultimo++;
+            array[ultimo] = elem;
+            subir(ultimo);
         }
         return exito;
+    }
+
+    private void subir(int i){
+        int posP;
+        boolean salir = false;
+        Comparable temp = array[i];
+        
+        while (!salir) {
+            posP = i/2;
+            if (posP >= 1) {
+                if (array[posP].compareTo(array[i]) < 0) {
+                    array[i] = array[posP];
+                    array[posP] = temp;
+                    i = posP;
+                }else{
+                    salir = true;
+                }
+            }else{
+                salir = true;
+            }
+        }
     }
 
     public boolean eliminarCima(){
@@ -86,5 +105,13 @@ public class Heap {
             cadena += "\n";
         }
         return cadena;
+    }
+
+    public void vaciar(){
+        ultimo = 0;
+    }
+
+    public boolean esVacio(){
+        return ultimo == 0;
     }
 }
