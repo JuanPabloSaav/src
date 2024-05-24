@@ -28,7 +28,7 @@ public class Heap {
         while (!salir) {
             posP = i/2;
             if (posP >= 1) {
-                if (array[posP].compareTo(array[i]) < 0) {
+                if (array[posP].compareTo(array[i]) > 0) {
                     array[i] = array[posP];
                     array[posP] = temp;
                     i = posP;
