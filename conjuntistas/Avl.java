@@ -17,7 +17,7 @@ public class Avl {
         if (balance > 1) {
             int balanceHijo = balance(padre.getIzquierdo());
             if (balanceHijo >= 0) {
-                //rotarDerecha
+                rotarDerecha(padre);
             }else{
                 //rotarIzquierda-Derecha
             }
@@ -43,12 +43,12 @@ public class Avl {
     }
 
     //TODO: COMPLETA!!!!!!
-    private rotarIzquierda(){
+    private NodoAvl rotarIzquierda(NodoAvl nodo){
 
     }
 
     //TODO: ADIVINA!!!!!!!
-    private rotarDerecha(){
+    private NodoAvl rotarDerecha(){
 
     }
 }
