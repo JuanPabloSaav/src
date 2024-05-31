@@ -20,30 +20,42 @@ public class ArbolBB {
             if (compare == 0) {
                 pertenece = true;
             }else if(compare < 0){
-                perteneceAux(nodo.getIzquierdo(), elem);
+                pertenece = perteneceAux(nodo.getIzquierdo(), elem);
             }else if(compare > 0){
-                perteneceAux(nodo.getDerecho(), elem);
+                pertenece = perteneceAux(nodo.getDerecho(), elem);
             }
         }
         return pertenece;
     }
 
     public boolean insertar(Comparable elem){
-        return insertarAux(this.raiz, elem);
+        boolean exito = false;
+        if (this.raiz == null) {
+            raiz = new NodoBB(elem);
+            exito = true;
+        }else{
+            exito = insertarAux(this.raiz, elem);
+        }
+           return exito;
     }
 
     private boolean insertarAux(NodoBB nodo, Comparable elem){
         boolean insertado = false;
         if (nodo != null) {
             int comparacion = elem.compareTo(nodo.getElemento());
-            if (comparacion == 0) {
-                insertado = false;
-            }else if(comparacion < 0){
-                if (nodo.getIzquierdo() != null) {
-                    insertarAux(nodo.getIzquierdo(), elem);
-                }else{
+            if (comparacion < 0) {
+                if (nodo.getIzquierdo() == null) {
                     nodo.setIzquierdo(new NodoBB(elem));
                     insertado = true;
+                }else{
+                    insertarAux(nodo.getIzquierdo(), elem);
+                }
+            }else if(comparacion > 0){
+                if (nodo.getDerecho() == null) {
+                    nodo.setDerecho(new NodoBB(elem));
+                    insertado = true;
+                }else{
+                    insertarAux(nodo.getDerecho(), elem);
                 }
             }
         }
@@ -72,27 +84,75 @@ public class ArbolBB {
         return this.raiz == null;
     }
 
-    public Lista listarRango(Comparable min, Comparable max){
-        Lista rango = new Lista();
-        if (this.raiz != null && min != null && max != null) {
-            if (raiz.getElemento().compareTo(min) < 0) {
-                listarMin(min, raiz.getIzquierdo(), rango);
-            }else if(raiz.getElemento().compareTo(min) > 0){
-                listarMin(min, raiz, rango);
-            }
-        }  
+    public Lista listarRango(Comparable elemMinimo, Comparable elemMaximo) {
+        Lista listaRango = new Lista();
+        return listarRangoAux(this.raiz, elemMinimo, elemMaximo, listaRango);
     }
 
-    private void listarMin(Comparable min, NodoBB nodo, Lista rango){
+    private Lista listarRangoAux(NodoBB nodo, Comparable elemMinimo, Comparable elemMaximo, Lista listaRango) {
         if (nodo != null) {
-            int comparacion = min.compareTo(nodo.getElemento());
-            if (comparacion == 0) {
-                rango.insertar(nodo.getElemento(), rango.longitud());
-            }else if(comparacion < 0){
-                listarMin(min, nodo.getIzquierdo(), rango);
-            }else if(comparacion > 0){
-                listarMin(min, nodo.getDerecho(), rango);
+            int comparacionMin = elemMinimo.compareTo(nodo.getElemento());
+            int comparacionMax = elemMaximo.compareTo(nodo.getElemento());
+
+            if (comparacionMin < 0) {
+                listarRangoAux(nodo.getIzquierdo(), elemMinimo, elemMaximo, listaRango);
+            }
+
+            if (comparacionMin <= 0 && comparacionMax >= 0) {
+                listaRango.insertar(nodo.getElemento(), listaRango.longitud() + 1);
+            }
+
+            if (comparacionMax > 0) {
+                listarRangoAux(nodo.getDerecho(), elemMinimo, elemMaximo, listaRango);
             }
         }
+
+        return listaRango;
+    }
+
+    public boolean eliminar(Comparable elem){
+        return eliminarAux(this.raiz, elem);
+    }
+    
+    //TODO: REVISAR
+    private boolean eliminarAux(NodoBB nodo, Comparable elem){
+        boolean eliminado = false;
+        if (nodo != null) {
+            int comparacion = elem.compareTo(nodo.getElemento());
+            if (comparacion < 0) {
+                eliminado = eliminarAux(nodo.getIzquierdo(), elem);
+            }else if(comparacion > 0){
+                eliminado = eliminarAux(nodo.getDerecho(), elem);
+            }else{
+                if (nodo.getIzquierdo() == null && nodo.getDerecho() == null) {
+                    nodo = null;
+                    eliminado = true;
+                }else if(nodo.getIzquierdo() != null && nodo.getDerecho() == null){
+                    nodo = nodo.getIzquierdo();
+                    eliminado = true;
+                }else if(nodo.getIzquierdo() == null && nodo.getDerecho() != null){
+                    nodo = nodo.getDerecho();
+                    eliminado = true;
+                }else{
+                    NodoBB reemplazo = buscarReemplazo(nodo.getIzquierdo());
+                    nodo.setElemento(reemplazo.getElemento());
+                    eliminarAux(nodo.getIzquierdo(), reemplazo.getElemento());
+                    eliminado = true;
+                }
+            }
+        }
+        return eliminado;
+    }
+
+    private NodoBB buscarReemplazo(NodoBB nodo){
+        NodoBB reemplazo = nodo;
+        if (nodo.getDerecho() != null) {
+            reemplazo = buscarReemplazo(nodo.getDerecho());
+        }
+        return reemplazo;
+    }
+
+    public void vaciar(){
+        this.raiz = null;
     }
 }
