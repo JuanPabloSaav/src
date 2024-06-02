@@ -1,7 +1,7 @@
 package conjuntistas;
 
 import lineales.dinamicas.Lista;
-
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ArbolBB {
     private NodoBB raiz;
 
@@ -111,37 +111,40 @@ public class ArbolBB {
     }
 
     public boolean eliminar(Comparable elem){
-        return eliminarAux(this.raiz, elem);
+        boolean[] eliminado = {false};
+        if (raiz != null) {
+            this.raiz = eliminarAux(raiz, elem, eliminado);
+        }
+        return eliminado[0];
     }
     
     //TODO: REVISAR
-    private boolean eliminarAux(NodoBB nodo, Comparable elem){
-        boolean eliminado = false;
+    private NodoBB eliminarAux(NodoBB nodo, Comparable elem, boolean[] eliminado){
         if (nodo != null) {
             int comparacion = elem.compareTo(nodo.getElemento());
             if (comparacion < 0) {
-                eliminado = eliminarAux(nodo.getIzquierdo(), elem);
+                nodo.setIzquierdo(eliminarAux(nodo.getIzquierdo(), elem, eliminado));
             }else if(comparacion > 0){
-                eliminado = eliminarAux(nodo.getDerecho(), elem);
+                nodo.setDerecho(eliminarAux(nodo.getDerecho(), elem, eliminado));
             }else{
                 if (nodo.getIzquierdo() == null && nodo.getDerecho() == null) {
                     nodo = null;
-                    eliminado = true;
+                    eliminado[0] = true;
                 }else if(nodo.getIzquierdo() != null && nodo.getDerecho() == null){
                     nodo = nodo.getIzquierdo();
-                    eliminado = true;
+                    eliminado[0] = true;
                 }else if(nodo.getIzquierdo() == null && nodo.getDerecho() != null){
                     nodo = nodo.getDerecho();
-                    eliminado = true;
+                    eliminado[0] = true;
                 }else{
                     NodoBB reemplazo = buscarReemplazo(nodo.getIzquierdo());
                     nodo.setElemento(reemplazo.getElemento());
-                    eliminarAux(nodo.getIzquierdo(), reemplazo.getElemento());
-                    eliminado = true;
+                    nodo.setIzquierdo(eliminarAux(nodo.getIzquierdo(), reemplazo.getElemento(), eliminado));
+                    eliminado[0] = true;
                 }
             }
         }
-        return eliminado;
+        return nodo;
     }
 
     private NodoBB buscarReemplazo(NodoBB nodo){

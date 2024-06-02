@@ -1,5 +1,5 @@
 package conjuntistas;
-
+@SuppressWarnings({"rawtypes"})
 public class NodoAvl {
     private Comparable elem;
     private int altura;
@@ -18,7 +18,6 @@ public class NodoAvl {
         this.izquierdo = izquierdo;
         this.derecho = derecho;
         recalcularAltura();
-        //TODO: flopa
     }
 
     public Comparable getElem(){
@@ -66,12 +65,13 @@ public class NodoAvl {
 
     private int recalcularAlturaAux(NodoAvl nodo, int alturaActual){
         if (nodo != null) {
+            alturaActual++;
             int alturaDerecho = 0, alturaIzquierdo = 0;
             if (nodo.izquierdo != null) {
-                alturaIzquierdo = recalcularAlturaAux(nodo.izquierdo, alturaActual+1);
+                alturaIzquierdo = recalcularAlturaAux(nodo.izquierdo, alturaActual);
             }
             if (nodo.derecho != null) {
-                alturaDerecho = recalcularAlturaAux(nodo.derecho, alturaActual+1);
+                alturaDerecho = recalcularAlturaAux(nodo.derecho, alturaActual);
             }
             if (alturaIzquierdo > alturaDerecho) {
                 alturaActual = alturaIzquierdo;

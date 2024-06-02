@@ -1,5 +1,5 @@
 package conjuntistas;
-
+@SuppressWarnings({"rawtypes"})
 public class NodoBB {
     private Comparable elem;
     private NodoBB izquierdo;

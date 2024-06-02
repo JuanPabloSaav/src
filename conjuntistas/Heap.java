@@ -1,5 +1,5 @@
 package conjuntistas;
-
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class Heap {
     private Comparable[] array;
     private int tamaño = 20;
