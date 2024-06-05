@@ -158,4 +158,71 @@ public class ArbolBB {
     public void vaciar(){
         this.raiz = null;
     }
+
+    //simulacro 2
+
+    public void eliminarMinimo(){
+        if(raiz != null){
+            if (raiz.getIzquierdo() == null) {
+                raiz = raiz.getDerecho();
+            }else{
+                NodoBB padreMin = buscarPadreNodoMin(raiz);
+                NodoBB min = padreMin.getIzquierdo();
+                if (min.getDerecho() != null) {
+                    min = min.getDerecho();
+                    padreMin.setIzquierdo(min);
+                }
+            }
+        }
+    }
+
+    private NodoBB buscarPadreNodoMin(NodoBB padre){
+        //obtiene el hijo del padre
+        NodoBB hijo = padre.getIzquierdo();
+        /*
+        * si el hijo tiene un hijo izquierdo quiere decir que no es el minimo
+        * por lo tanto se lo usa para seguir buscando
+        */
+        if (hijo.getIzquierdo() != null) {
+            padre = buscarPadreNodoMin(hijo);
+        }
+
+        //si es el minimo se devuelve el padre
+        return padre;
+    }
+
+    public ArbolBB clonarParteInvertida(Comparable elem){
+        ArbolBB clonInvertido = new ArbolBB();
+        clonarParteInvertidaAux(elem, this.raiz, clonInvertido);
+        return clonInvertido;
+    }
+
+    private void clonarParteInvertidaAux(Comparable elem, NodoBB nodo, ArbolBB clonInvertido){
+        if (nodo != null) {
+            int compare = elem.compareTo(nodo.getElemento());
+            if (compare == 0) {
+                clonInvertido.raiz = new NodoBB(nodo.getElemento());
+                invertirSubArbol(nodo, clonInvertido.raiz);
+            }else if(compare < 0 && nodo.getIzquierdo() != null){
+                clonarParteInvertidaAux(elem, nodo.getIzquierdo(), clonInvertido);
+            }else if (nodo.getDerecho() != null){
+                clonarParteInvertidaAux(elem, nodo.getDerecho(), clonInvertido);
+            }
+        }
+    }
+
+    private void invertirSubArbol(NodoBB nodo, NodoBB nodoClon){
+        if (nodo != null) {
+            if (nodo.getIzquierdo() != null) {
+                nodoClon.setDerecho(nodo.getIzquierdo());
+                invertirSubArbol(nodo.getIzquierdo(), nodoClon.getDerecho());
+            }
+            if (nodo.getDerecho() != null) {
+                nodoClon.setIzquierdo(nodo.getDerecho());
+                invertirSubArbol(nodo.getDerecho(), nodoClon.getIzquierdo());
+            }
+        }
+    }
+
+
 }

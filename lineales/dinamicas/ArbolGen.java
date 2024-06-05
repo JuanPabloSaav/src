@@ -456,15 +456,15 @@ public class ArbolGen {
                     lista.insertar(aux.getElemento(), lista.longitud()+1);
                 }
                 aux = aux.getIzquierdo();
-                if (aux != null) {
-                    while (aux != null) {
-                        temp.insertar(aux, temp.longitud()+1);
-                        aux.getHermanoDerecho();
-                    }
+                while (aux != null && nivelActual+1 <= niv2) {
+                    temp.insertar(aux, temp.longitud()+1);
+                    aux.getHermanoDerecho();
                 }
                 nodos.eliminar(1);
             }
             listarEntreNivelesAux(niv1, niv2, temp, nivelActual+1, lista);
         }
     }
+
+    
 }
