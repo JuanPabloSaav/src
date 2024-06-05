@@ -1,5 +1,7 @@
 package lineales.dinamicas;
 
+import conjuntistas.NodoBB;
+
 public class ArbolGen {
     private NodoArbolGen raiz;
     
@@ -407,5 +409,62 @@ public class ArbolGen {
             }
         }
         return cadena;
+    }
+
+
+    //SIMULACRO 2 
+
+
+    public boolean verificarCamino(Lista lista){
+        boolean exito = false;
+        exito = verificarCaminoAux(lista, this.raiz, 1);
+        return exito;
+    }
+
+    private boolean verificarCaminoAux(Lista lista, NodoArbolGen nodo, int posElemActual){
+        boolean exito = false;
+        if (nodo != null) {
+            NodoArbolGen aux = nodo;
+            while (aux != null && !exito) {
+                if (aux.getElemento().equals(lista.recuperar(posElemActual))) {
+                    if (lista.longitud() == posElemActual) {
+                        exito = true;
+                    }else{
+                        exito = verificarCaminoAux(lista, aux.getIzquierdo(), posElemActual+1);
+                    }
+                }
+                aux = aux.getHermanoDerecho();
+            }
+        }
+        return exito;
+    }
+
+    public Lista listarEntreNiveles(int niv1, int niv2){
+        Lista lista = new Lista();
+        Lista nodos = new Lista();
+        nodos.insertar(this.raiz, 1);
+        listarEntreNivelesAux(niv1, niv2, nodos, 0, lista);
+        return lista;
+    }
+
+    private void listarEntreNivelesAux(int niv1, int niv2, Lista nodos, int nivelActual, Lista lista){
+        if (nivelActual <= niv2 && !nodos.esVacia()) {
+            Lista temp = new Lista();
+            while (!nodos.esVacia()) {
+                NodoArbolGen aux = (NodoArbolGen) nodos.recuperar(1);
+                if (nivelActual >= niv1) {
+                    lista.insertar(aux.getElemento(), lista.longitud()+1);
+                }
+                aux = aux.getIzquierdo();
+                if (aux != null) {
+                    while (aux != null) {
+                        temp.insertar(aux, temp.longitud()+1);
+                        aux.getHermanoDerecho();
+                    }
+                }
+                nodos.eliminar(1);
+            }
+            listarEntreNivelesAux(niv1, niv2, temp, nivelActual+1, lista);
+        }
     }
 }
