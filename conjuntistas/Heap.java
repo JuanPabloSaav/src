@@ -114,4 +114,6 @@ public class Heap {
     public boolean esVacio(){
         return ultimo == 0;
     }
+
+    
 }
