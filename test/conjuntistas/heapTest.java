@@ -6,6 +6,9 @@ public class heapTest {
     }
 
     public static void eliminarTest(){
+        /*
+         * solo para debugger
+         */
         Heap heap = new Heap();
         heap.insertar(1);
         heap.insertar(2);
