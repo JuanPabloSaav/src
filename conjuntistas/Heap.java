@@ -40,11 +40,12 @@ public class Heap {
             }
         }
     }
-
+    //EN ARREGLO
     public boolean eliminarCima(){
         boolean eliminado = false;
         if (this.ultimo != 0) {
             this.array[1] = this.array[ultimo];
+            this.array[ultimo] = null;
             this.ultimo--;
             bajar(1);
             eliminado = true;
@@ -61,13 +62,13 @@ public class Heap {
             posH = i*2;
             if (posH <= ultimo) {
                 if (posH < ultimo) {
-                    if (array[i+1].compareTo(array[i]) < 0) {
+                    if (array[posH].compareTo(array[posH+1]) > 0) {
                         posH++;
                     }
                 }
                 if (array[posH].compareTo(temp) < 0) {
-                    this.array[i] = this.array[posH];
-                    this.array[posH] = temp;
+                    array[i] = array[posH];
+                    array[posH] = temp;
                     i = posH;
                 }else{
                     salir = true;
@@ -115,5 +116,5 @@ public class Heap {
         return ultimo == 0;
     }
 
-    
+
 }
