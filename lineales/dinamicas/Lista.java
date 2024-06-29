@@ -177,4 +177,60 @@ public class Lista {
     }
 
     
+    //promocion
+
+    //ejercicio 2 parcial 1
+
+    public boolean moverAAnteultimaPosicion(int pos){
+        boolean exito = false;
+        if (cabecera != null && cabecera.getEnlace() != null) {
+            exito = moverAAnteultimaPosicionAux(pos);
+        }
+        return exito;
+    }
+
+    private boolean moverAAnteultimaPosicionAux(int pos){
+        boolean exito = false;
+        if (cabecera.getEnlace().getEnlace() != null) {
+            exito = moverAAnteultimaPosicionGeneral(pos);
+        }else if(pos == 1){
+            exito = true;
+        }else{
+            Object aux = cabecera.getDato();
+            cabecera.setDato(cabecera.getEnlace().getDato());
+            cabecera.getEnlace().setDato(aux);
+            exito = true;
+        }
+        return exito;
+    }
+
+    private boolean moverAAnteultimaPosicionGeneral(int pos){
+        boolean exito = true;
+        Nodo nodo = cabecera;
+        int posActual = 0;
+        Nodo nodoBuscado = null;
+        Nodo anteUltimoNodo = null;
+        while (nodo != null && (nodoBuscado != null && anteUltimoNodo != null)) {
+            if (nodo.getEnlace().getEnlace() == null) {
+                if (pos == posActual) {
+                    exito = true;
+                }else{
+                    anteUltimoNodo = nodo;
+                }
+            }
+            if (posActual == pos) {
+                nodoBuscado = nodo;
+            }
+            nodo = nodo.getEnlace();
+            posActual++;
+        }
+        if (nodoBuscado != null && anteUltimoNodo != null) {
+            Object aux = nodoBuscado.getDato();
+            nodoBuscado.setDato(anteUltimoNodo.getDato());
+            anteUltimoNodo.setDato(aux);
+            exito = true;
+        }
+        return exito;
+    }
+
 }
