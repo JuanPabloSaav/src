@@ -1,7 +1,5 @@
 package lineales.dinamicas;
 
-import conjuntistas.NodoBB;
-
 public class ArbolGen {
     private NodoArbolGen raiz;
     

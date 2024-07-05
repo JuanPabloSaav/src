@@ -53,7 +53,6 @@ public class  Avl {
         return eliminado[0];
     }
     
-    //TODO: REVISAR
     private NodoAvl eliminarAux(NodoAvl nodo, Comparable elem, boolean[] eliminado){
         if (nodo != null) {
             int comparacion = elem.compareTo(nodo.getElem());
@@ -92,7 +91,6 @@ public class  Avl {
         return reemplazo;
     }
 
-    //TODO: revisar
     private NodoAvl reBalanceo(NodoAvl nodoHijo){
         int balanceo = balanceo(nodoHijo);
         if (balanceo > 1) {
