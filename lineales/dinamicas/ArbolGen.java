@@ -464,5 +464,46 @@ public class ArbolGen {
         }
     }
 
+    //Promocion
+
+
+    //ejercicio 1 parcial 2
+    public boolean jerarquizar(Object elem){
+        boolean exito = false;
+        if (this.raiz != null && raiz.getIzquierdo() != null) {
+            exito = jerarquizarAux(elem, raiz.getIzquierdo(), null);            
+        }
+        return exito;
+    }
+
+    private boolean jerarquizarAux(Object elem, NodoArbolGen nodo, NodoArbolGen padre){
+        boolean exito = false;
+        NodoArbolGen hAnterior = null;
+        while (nodo != null && !exito) {
+            if (nodo.getElemento().equals(elem)) {
+                if (hAnterior != null) {
+                    hAnterior.setHermanoDerecho(nodo.getHermanoDerecho());
+                    nodo.setHermanoDerecho(padre.getHermanoDerecho());
+                    padre.setHermanoDerecho(nodo);
+                    exito = true;
+                }else{
+                    padre.setIzquierdo(nodo.getHermanoDerecho());
+                    nodo.setHermanoDerecho(padre.getHermanoDerecho());
+                    padre.setHermanoDerecho(nodo);
+                    exito = true;
+                }
+            }else{
+                if (nodo.getIzquierdo() != null) {
+                    exito = jerarquizarAux(elem, nodo.getIzquierdo(), nodo);                    
+                }
+            }
+            hAnterior = nodo;
+            nodo = nodo.getHermanoDerecho();
+        }
+        return exito;
+        
+    }
+
+
     
 }
