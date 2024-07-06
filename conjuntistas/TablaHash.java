@@ -5,19 +5,19 @@ import java.util.Arrays;
 public class TablaHash {
     private int tamaño;
     private Nodo[] tabla;
-    private int cant = 0;
     private int primo;
 
     public TablaHash(int size){
         tabla = new Nodo[size];
         tamaño = size;
+        primo = getPrimoCercano(size);
 
     }
 
     public boolean insertar(Comparable elemento){
         boolean exito = false;
         int hash = elemento.hashCode();
-        int pos = getPrimoCercano(hash) % tamaño;
+        int pos = hash % primo;
         Nodo bucket = tabla[pos];
         if (bucket != null) {
             while (bucket.getEnlace() != null) {
@@ -36,7 +36,7 @@ public class TablaHash {
     public boolean eliminar(Comparable elemento){
         boolean exito = false;
         int hash = elemento.hashCode();
-        int pos = getPrimoCercano(hash) % tamaño;
+        int pos = hash % primo;
         Nodo bucket = tabla[pos];
         Nodo anterior = null;
         while (bucket != null) {
@@ -53,7 +53,7 @@ public class TablaHash {
     public boolean pertenece(Comparable elemento){
         boolean encontrado = false;
         int hash = elemento.hashCode();
-        int pos = getPrimoCercano(hash) % tamaño;
+        int pos = hash % primo;
         Nodo bucket = tabla[pos];
         while (bucket != null) {
             if (bucket.getDato().equals(elemento)) {
